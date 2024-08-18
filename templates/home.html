@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h1>Welcome back,<br>{{ name }}</h1>
+<div class="center">
+   <div class="shelf">
+      <h2>Recommendations</h2>
+      <hr>
+      {% for recommendation in recommendations %}
+         <div class="list-container">
+            <span>
+               <h3>{{ recommendation.name }}<p class="type">{{ recommendation.r_type }}</p></h3>
+               <p>{{ recommendation.artist }}</p>
+               <p>From {{ recommendation.from}} on {{ recommendation.recommended_on}}</p>
+            </span>
+            <span class="center-vertical">
+               <a href="recommendations?q={{ recommendation.id }}">Rate</a>
+            </span>
+         </div>
+      {% endfor %}
+   </div>
+</div>
+<div class="center">
+   <div class="shelf">
+      <h2>Reviews</h2>
+      <hr>
+      {% for review in reviews %}
+         <div class="list-container">
+            <span>
+               <h3>{{ review.name }}<p class="type">{{ review.r_type }}</p></h3>
+               <p>{{ review.artist }}</p>
+               <p>From {{ review.from}} on {{ review.recommended_on }}</p>
+            </span>
+            <span class="center-vertical">
+               <a href="reviews?q={{ review.id }}">View</a>
+            </span>
+         </div>
+      {% endfor %}
+   </div>
+</div>
+<div class="center">
+   <div class="shelf">
+      <h2>Send Recommendation</h2>
+      <hr>
+      <form action="/send" method="post">
+         <label>Send Recommendation To</label>
+         <input required name="to" type="text" placeholder="Username"/>
+         <label>Type</label>
+         <select required name="r_type">
+            <option value="Album">Album</option>
+            <option value="Song">Song</option>
+         </select>
+         <label>Name</label>
+         <input required name="name" type="text" placeholder="Name"/>
+         <label>Artist</label>
+         <input required name="artist" type="text" placeholder="Artist"/>
+         <input type="submit"/>
+      </form>
+   </div>
+</div>
+
+<style>
+   
+   :root {
+      background-color: #232626;
+      color: #ebf9fa;
+   }
+
+   h1 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 2rem;
+      margin-top: 4rem;
+      margin-bottom: 4rem;
+      text-align: center;
+   }
+
+   h2 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 0;
+   }
+
+   h3 {
+      font-family: "Montserrat", sans-serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: .25rem;
+      margin-top: 0;
+      display: inline-block;
+   }
+
+   p {
+      font-family: "Roboto", sans-serif;
+      margin-top: 0;
+      margin-bottom: .25rem;
+   }
+
+   a {
+      font-family: "Roboto", sans-serif;
+      color: #ebf9fa;
+      font-weight: 500;
+      text-decoration: none;
+      border: solid #33b86d;
+      border-radius: 10px;
+      background: #33b86d;
+      padding: .5em;
+   }
+
+   form {
+      display: flex;
+      flex-direction: column;
+   }
+
+   label {
+      font-family: "Roboto", sans-serif;
+      margin-bottom: .25rem;
+   }
+
+   input, select {
+      margin-bottom: .25rem;
+   }
+
+   hr {
+      border-color: #ebf9fa;
+      background-color: #ebf9fa;
+      margin-bottom: 2rem;
+   }
+
+   .center {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 3rem;
+   }
+
+   .center-vertical {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+   }
+
+   .list-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+   }
+
+   .shelf {
+      border: solid #33b86d;
+      border-radius: 10px;
+      width: 500px;
+      padding-left: 1rem;
+      padding-right: 1rem;
+   }
+
+   .type {
+      font-size: 1rem;
+      font-weight: 300;
+      margin-left: .25rem;
+      margin-bottom: 0;
+      display: inline-block
+   }
+
+</style>
+{% endblock %}

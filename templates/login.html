@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h1>Login</h1>
+<div class="center">
+   <form action="/login" method="post">
+      <label>Email</label>
+      <input required name="email" type="email" placeholder="Email"/>
+      <label>Password</label>
+      <input required name="password" type="text" placeholder="Password"/>
+      <input type="submit"/>
+   </form>
+</div>
+<style>
+   :root {
+      background-color: #232626;
+   }
+
+   h1, p, a, label {
+      text-align: center;
+      color: #ebf9fa;
+   }
+
+   input, label {
+      margin-bottom: 1rem;
+   }
+
+   h1 {
+      font-family: "Montserrat", sans-serif;
+      margin-top: 35%;
+   }
+
+   p {
+      font-family: "Roboto", sans-serif;
+      margin-bottom: 2rem;
+   }
+
+   label {
+      font-family: "Roboto", sans-serif;
+   }
+
+   a {
+      font-family: "Roboto", sans-serif;
+      font-weight: 600;
+      text-decoration: none;
+      border: solid #33b86d;
+      border-radius: 10px;
+      background: #33b86d;
+      padding: .5em;
+      padding-left: 1em;
+      padding-right: 1em;
+   }
+   
+   form {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+   }
+
+   .center {
+      display: flex;
+      justify-content: center;
+   }
+
+</style>
+{% endblock %}
