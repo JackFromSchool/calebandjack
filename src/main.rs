@@ -10,17 +10,26 @@ use axum::{
     response::{Response, Html, IntoResponse},
 };
 
-use sqlx::postgres::PgPoolOptions;
+use sqlx::postgres::PgPool;
 
 use askama::Template;
 
-#[tokio::main]
-async fn main() {
+#[shuttle_runtime::main]
+pub async fn main(
+    #[shuttle_shared_db::Postgres] pool: PgPool,
+) -> shuttle_axum::ShuttleAxum {
+    /*
     let db = PgPoolOptions::new()
         .max_connections(5)
         .connect("postgres://postgres:postgres@localhost:5432/postgres")
         .await
         .expect("Failed to connect to database.");
+    */
+
+    sqlx::migrate!()
+        .run(&pool)
+        .await
+        .expect("Error running migrations.");
     
     let app = Router::new()
         .route("/", get(routes::root))
@@ -32,10 +41,9 @@ async fn main() {
         .route("/recommendations", get(routes::recommendations))
         .route("/rate", post(apiroutes::rate))
         .route("/reviews", get(routes::reviews))
-        .layer(Extension(db));
-
-    let listener = tokio::net::TcpListener::bind("192.168.1.187:3000").await.unwrap();
-    axum::serve(listener, app).await.unwrap();
+        .layer(Extension(pool));
+    
+    Ok(app.into())
 }
 
 struct HtmlTemplate<T>(T);
