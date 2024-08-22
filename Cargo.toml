@@ -3,6 +3,9 @@ name = "calebandjack"
 version = "0.1.0"
 edition = "2021"
 
+[env]
+RUST_LOG = "shuttle=error,warn,debug,info"
+
 [dependencies]
 askama = { version = "0.12.1", features = ["with-axum"] }
 askama_axum = "0.4.0"

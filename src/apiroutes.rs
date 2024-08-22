@@ -281,12 +281,14 @@ pub async fn new_username_validation(
     Extension(db): Extension<PgPool>,
     Form(form): Form<NewUsernameValidation>,
 ) -> Response {
+    println!("Called new_username_validation api route");
     if sqlx::query("SELECT * FROM users WHERE username = $1")
         .bind(&form.username.to_lowercase())
         .fetch_optional(&db)
         .await
-        .unwrap()
+        .expect("Failed sqlx query")
         .is_none() && form.username.to_lowercase() != "calebandjackhavingsex.com" {
+
         let template = NewUsernameValidationTemplate {
             message: "Username is available!",
             class: "valid",
