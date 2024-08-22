@@ -16,6 +16,7 @@ cookie = "0.18.1"
 serde = { version = "1.0.207", features = ["derive"] }
 shuttle-axum = "0.47.0"
 shuttle-runtime = "0.47.0"
+shuttle-secrets = "0.42.0"
 shuttle-shared-db = { version = "0.47.0", features = ["postgres", "sqlx-native-tls"] }
 sqlx = { version = "0.7.1", features = ["postgres", "runtime-tokio", "tls-native-tls", "time"] }
 tokio = { version = "1.39.2", features = ["rt-multi-thread"] }

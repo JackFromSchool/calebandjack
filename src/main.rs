@@ -10,28 +10,22 @@ use axum::{
     response::{Response, Html, IntoResponse},
 };
 
-use sqlx::postgres::PgPool;
+use shuttle_runtime::SecretStore;
+
+use sqlx::postgres::PgPoolOptions;
 
 use askama::Template;
 
 #[shuttle_runtime::main]
 pub async fn main(
-    #[shuttle_shared_db::Postgres(
-        local_uri = "postgres://postgres:postgres@localhost:5432/postgres"
-    )] pool: PgPool,
+    #[shuttle_runtime::Secrets] secrets: SecretStore,
 ) -> shuttle_axum::ShuttleAxum {
-    /*
+    
     let db = PgPoolOptions::new()
         .max_connections(5)
-        .connect("postgres://postgres:postgres@localhost:5432/postgres")
+        .connect(&format!("postgresql://postgres.vjjgvrjgtpidryehdqnh:{}@aws-0-us-west-1.pooler.supabase.com:6543/postgres", secrets.get("DB_PASSWORD").expect("Secret not found")).to_string())
         .await
         .expect("Failed to connect to database.");
-    */
-
-    sqlx::migrate!()
-        .run(&pool)
-        .await
-        .expect("Error running migrations.");
     
     let app = Router::new()
         .route("/", get(routes::root))
@@ -45,7 +39,7 @@ pub async fn main(
         .route("/reviews", get(routes::reviews))
         .route("/new_user", get(routes::new_user).post(apiroutes::new_user))
         .route("/new_user/username", post(apiroutes::new_username_validation))
-        .layer(Extension(pool));
+        .layer(Extension(db));
     
     Ok(app.into())
 }
