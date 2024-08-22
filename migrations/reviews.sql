@@ -3,6 +3,5 @@ CREATE TABLE reviews (
    rating smallint not null,
    comments text,
    returned_on date default current_date, 
-   by_id integer not null,
    recommendation_id integer not null
 );

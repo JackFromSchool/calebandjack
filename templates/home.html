@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block head %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,7 +34,7 @@
             <span>
                <h3>{{ review.name }}<p class="type">{{ review.r_type }}</p></h3>
                <p>{{ review.artist }}</p>
-               <p>From {{ review.from}} on {{ review.recommended_on }}</p>
+               <p>By {{ review.by }} on {{ review.returned_on }}</p>
             </span>
             <span class="center-vertical">
                <a href="reviews?q={{ review.id }}">View</a>
@@ -48,9 +47,11 @@
    <div class="shelf">
       <h2>Send Recommendation</h2>
       <hr>
-      <form action="/send" method="post">
-         <label>Send Recommendation To</label>
-         <input required name="to" type="text" placeholder="Username"/>
+      <form hx-post="/new" hx-swap="outerHTML" hx-target="this">
+         <div hx-target="this" hx-swap="outerHTML" class="form-div">
+            <label>Send Recommendation To</label>
+            <input required name="to" type="text" placeholder="Username" hx-post="/new/username"/>
+         </div>
          <label>Type</label>
          <select required name="r_type">
             <option value="Album">Album</option>
@@ -63,6 +64,9 @@
          <input type="submit"/>
       </form>
    </div>
+</div>
+<div class="center">
+   <a href="/logout">Logout</a>
 </div>
 
 <style>
@@ -115,6 +119,7 @@
    form {
       display: flex;
       flex-direction: column;
+      margin-bottom: 1rem;
    }
 
    label {
@@ -123,7 +128,7 @@
    }
 
    input, select {
-      margin-bottom: .25rem;
+      margin-bottom: .75rem;
    }
 
    hr {
@@ -150,13 +155,24 @@
       justify-content: space-between;
       margin-bottom: 1rem;
    }
+   
+   .form-div {
+      display: flex;
+      flex-direction: column;
+   }
 
    .shelf {
       border: solid #33b86d;
       border-radius: 10px;
-      width: 500px;
+      width: min(60vw, 60rem);
       padding-left: 1rem;
       padding-right: 1rem;
+   }
+
+   @media only screen and (max-width: 800px) {
+      .shelf {
+         width: 100%;
+      }
    }
 
    .type {
@@ -165,6 +181,14 @@
       margin-left: .25rem;
       margin-bottom: 0;
       display: inline-block
+   }
+
+   .error {
+      color: #c74936;
+   }
+
+   .valid {
+      color: #25b522;
    }
 
 </style>

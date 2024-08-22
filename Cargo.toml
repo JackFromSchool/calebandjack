@@ -8,6 +8,7 @@ askama = { version = "0.12.1", features = ["with-axum"] }
 askama_axum = "0.4.0"
 axum = { version = "0.7.5", features = ["query"] }
 axum-extra = { version = "0.9.3", features = ["cookie"] }
+axum-macros = "0.4.1"
 cookie = "0.18.1"
 serde = { version = "1.0.207", features = ["derive"] }
 sqlx = { version = "0.8.0", features = ["postgres", "runtime-tokio", "tls-native-tls", "time"] }

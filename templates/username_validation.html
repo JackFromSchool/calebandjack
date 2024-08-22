@@ -1,0 +1,5 @@
+<div hx-target="this" hx-swap="outerHTML" class="form-div">
+   <label>Send Recommendation To</label>
+   <input required name="to" type="text" placeholder="Username" hx-post="/new/username" value="{{ value }}"/>
+   <p class="{{ class }}">{{ message }}</p>
+</div>

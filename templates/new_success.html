@@ -1,0 +1,17 @@
+<form hx-post="/new" hx-swap="outerHTML" hx-target="this">
+   <div hx-target="this" hx-swap="outerHTML" class="form-div">
+      <label>Send Recommendation To</label>
+      <input required name="to" type="text" placeholder="Username" hx-post="/new/username"/>
+   </div>
+   <label>Type</label>
+   <select required name="r_type">
+      <option value="Album">Album</option>
+      <option value="Song">Song</option>
+   </select>
+   <label>Name</label>
+   <input required name="name" type="text" placeholder="Name"/>
+   <label>Artist</label>
+   <input required name="artist" type="text" placeholder="Artist"/>
+   <input type="submit"/>
+   <p class="valid">Recommendation sent to {{ user }}!</p>
+</form>
