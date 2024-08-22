@@ -1,0 +1,12 @@
+<form hx-post="/new_user" hx-swap="outerHTML" hx-target="this">
+   <div hx-target="this" hx-swap="outerHTML" class="form-div">
+      <label>Username</label>
+      <input required name="username" value="{{ form.username }}" type="text" hx-post="/new_user/username" placeholder="Username">
+      <input type="hidden" name="valid_username" value="false"/>
+   </div>
+   <label>Email</label>
+   <input required name="email" value="{{ form.email }}" type="email" placeholder="Email"/>
+   <label>Password</label>
+   <input required name="password" value="{{ form.password }}" type="text" placeholder="Password"/>
+   <input type="submit"/>
+</form>

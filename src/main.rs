@@ -16,7 +16,9 @@ use askama::Template;
 
 #[shuttle_runtime::main]
 pub async fn main(
-    #[shuttle_shared_db::Postgres] pool: PgPool,
+    #[shuttle_shared_db::Postgres(
+        local_uri = "postgres://postgres:postgres@localhost:5432/postgres"
+    )] pool: PgPool,
 ) -> shuttle_axum::ShuttleAxum {
     /*
     let db = PgPoolOptions::new()
@@ -41,6 +43,8 @@ pub async fn main(
         .route("/recommendations", get(routes::recommendations))
         .route("/rate", post(apiroutes::rate))
         .route("/reviews", get(routes::reviews))
+        .route("/new_user", get(routes::new_user).post(apiroutes::new_user))
+        .route("/new_user/username", post(apiroutes::new_username_validation))
         .layer(Extension(pool));
     
     Ok(app.into())

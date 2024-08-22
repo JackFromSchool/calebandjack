@@ -278,3 +278,12 @@ WHERE review_id = $1;")
 
     return template.into_response();
 }
+
+#[derive(Template)]
+#[template(path = "new_user.html")]
+struct NewUserTemplate {}
+
+pub async fn new_user() -> Response {
+    let template = NewUserTemplate {};
+    return template.into_response();
+}

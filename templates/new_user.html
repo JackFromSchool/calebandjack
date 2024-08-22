@@ -1,3 +1,4 @@
+
 {% extends "base.html" %}
 
 {% block head %}
@@ -7,18 +8,20 @@
 {% endblock %}
 
 {% block content %}
-<h1>Login</h1>
+<h1>New User</h1>
 <div class="center">
-   <form action="/login" method="post">
+   <form hx-post="/new_user" hx-swap="outerHTML" hx-target="this">
+      <div hx-target="this" hx-swap="outerHTML" class="form-div">
+         <label>Username</label>
+         <input required name="username" type="text" hx-post="/new_user/username" placeholder="Username">
+         <input type="hidden" name="valid_username" value="false"/>
+      </div>
       <label>Email</label>
       <input required name="email" type="email" placeholder="Email"/>
       <label>Password</label>
       <input required name="password" type="text" placeholder="Password"/>
       <input type="submit"/>
    </form>
-</div>
-<div class="center">
-   <a href="/new_user">Click here to make a new account.</a>
 </div>
 <style>
    :root {
@@ -50,6 +53,7 @@
 
    a {
       font-family: "Roboto", sans-serif;
+      display: inline;
    }
    
    form {
@@ -61,6 +65,19 @@
    .center {
       display: flex;
       justify-content: center;
+   }
+   
+   .form-div {
+      display: flex;
+      flex-direction: column;
+   }
+   
+   .error {
+      color: #c74936;
+   }
+
+   .valid {
+      color: #25b522;
    }
 
 </style>

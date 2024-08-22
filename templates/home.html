@@ -51,6 +51,7 @@
          <div hx-target="this" hx-swap="outerHTML" class="form-div">
             <label>Send Recommendation To</label>
             <input required name="to" type="text" placeholder="Username" hx-post="/new/username"/>
+            <input type="hidden" name="valid_username" value="false"/>
          </div>
          <label>Type</label>
          <select required name="r_type">

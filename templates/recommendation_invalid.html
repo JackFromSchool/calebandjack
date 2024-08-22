@@ -1,0 +1,17 @@
+<form hx-post="/new" hx-swap="outerHTML" hx-target="this">
+   <div hx-target="this" hx-swap="outerHTML" class="form-div">
+      <label>Send Recommendation To</label>
+      <input required name="to" value="{{ form.to }}" type="text" placeholder="Username" hx-post="/new/username"/>
+      <input type="hidden" name="valid_username" value="false"/>
+   </div>
+   <label>Type</label>
+   <select required value="{{ form.r_type }}" name="r_type">
+      <option value="Album">Album</option>
+      <option value="Song">Song</option>
+   </select>
+   <label>Name</label>
+   <input required name="name" value="{{ form.name }}" type="text" placeholder="Name"/>
+   <label>Artist</label>
+   <input required name="artist" value="{{ form.artist }}" type="text" placeholder="Artist"/>
+   <input type="submit"/>
+</form>

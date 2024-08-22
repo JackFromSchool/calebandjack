@@ -118,6 +118,7 @@ pub struct NewRecommendation {
     r_type: String,
     name: String,
     artist: String,
+    valid_username: String,
 }
 
 #[derive(Template)]
@@ -126,11 +127,25 @@ struct NewSuccessTemplate {
     user: String,
 }
 
+#[derive(Template)]
+#[template(path = "recommendation_invalid.html")]
+pub struct RecommendationInvalidTemplate {
+    form: NewRecommendation,
+}
+
 pub async fn new(
     jar: CookieJar,
     Extension(db): Extension<PgPool>,
     Form(form): Form<NewRecommendation>
-) -> impl IntoResponse {
+) -> Response {
+    if form.valid_username == "false" {
+        let template = RecommendationInvalidTemplate {
+            form,
+        };
+        
+        return template.into_response();
+    }
+    
     let for_id: i32 = sqlx::query("SELECT user_id FROM users WHERE username = $1")
         .bind(&form.to)
         .fetch_one(&db)
@@ -166,7 +181,7 @@ VALUES ($1, $2, $3, $4, $5);")
         user: form.to,
     };
 
-    return template;
+    return template.into_response();
 }
 
 #[derive(Deserialize)]
@@ -180,12 +195,24 @@ struct UsernameValidationTemplate<'a> {
     message: &'a str,
     class: &'a str,
     value: String,
+    valid: &'a str,
 }
 
 pub async fn username_validation(
     Extension(db): Extension<PgPool>,
     Form(form): Form<UsernameValidation>,
 ) -> impl IntoResponse {
+    if form.to == "calebandjackhavingsex.com" {
+        let template = UsernameValidationTemplate {
+            message: "What a wild an wacky name! DONT USE IT!",
+            class: "error",
+            value: form.to.to_lowercase(),
+            valid: "false"
+        };
+        
+        return template;
+    }
+    
     if sqlx::query("SELECT * FROM users WHERE username = $1")
         .bind(&form.to.to_lowercase())
         .fetch_optional(&db)
@@ -196,6 +223,7 @@ pub async fn username_validation(
             message: "Username exists.",
             class: "valid",
             value: form.to.to_lowercase(),
+            valid: "true"
         };
 
         return template;
@@ -204,6 +232,7 @@ pub async fn username_validation(
             message: "Username does not exist.",
             class: "error",
             value: form.to.to_lowercase(),
+            valid: "false"
         };
 
         return template;
@@ -232,4 +261,89 @@ VALUES ($1, $2, $3);")
 
     Html(r#"<p class="sent">Review sent!</p>
 <a href="/home">Click to return home.</a>"#).into_response()
+}
+
+#[derive(Deserialize)]
+pub struct NewUsernameValidation {
+    username: String,
+}
+
+#[derive(Template)]
+#[template(path = "new_username_validation.html")]
+struct NewUsernameValidationTemplate<'a> {
+    message: &'a str,
+    class: &'a str,
+    value: String,
+    valid: &'a str,
+}
+
+pub async fn new_username_validation(
+    Extension(db): Extension<PgPool>,
+    Form(form): Form<NewUsernameValidation>,
+) -> Response {
+    if sqlx::query("SELECT * FROM users WHERE username = $1")
+        .bind(&form.username.to_lowercase())
+        .fetch_optional(&db)
+        .await
+        .unwrap()
+        .is_none() && form.username.to_lowercase() != "calebandjackhavingsex.com" {
+        let template = NewUsernameValidationTemplate {
+            message: "Username is available!",
+            class: "valid",
+            value: form.username.to_lowercase(),
+            valid: "true",
+        };
+
+        return template.into_response();
+    } else {
+        let template = NewUsernameValidationTemplate {
+            message: "Username already exists.",
+            class: "error",
+            value: form.username.to_lowercase(),
+            valid: "false",
+        };
+
+        return template.into_response();
+    }
+}
+
+#[derive(Deserialize)]
+pub struct NewUser {
+    username: String,
+    email: String,
+    password: String,
+    valid_username: String,
+}
+
+#[derive(Template)]
+#[template(path = "new_user_invalid.html")]
+pub struct NewUserInvalidTemplate {
+    form: NewUser,
+}
+
+pub async fn new_user(
+    Extension(db): Extension<PgPool>,
+    Form(form): Form<NewUser>,
+) -> Response {
+    if form.valid_username == "false" {
+        let template = NewUserInvalidTemplate {
+            form,
+        };
+        
+        return template.into_response();
+    }
+    
+    sqlx::query("INSERT INTO users (username, email, password)
+VALUES ($1, $2, $3);")
+        .bind(form.username.to_lowercase())
+        .bind(form.email)
+        .bind(form.password)
+        .execute(&db)
+        .await
+        .unwrap();
+
+   return Html(r#"<div>
+      <p class="valid">Account Created!</p>
+      <a href="/login">Click here to login.</a>
+   </div>"#).into_response();
 }
