@@ -86,7 +86,8 @@ WHERE age(issued, current_timestamp) > INTERVAL '1 day';")
 
             (jar.add(cookie), Redirect::to("/home"))
         },
-        Err(_) => {
+        Err(err) => {
+            println!("{}", err);
             (jar, Redirect::to("/login"))
         }
     }
