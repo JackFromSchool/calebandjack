@@ -1,0 +1,41 @@
+:root {
+   background-color: #232626;
+}
+
+h1, p, a, label {
+   text-align: center;
+   color: #ebf9fa;
+}
+
+input, label {
+   margin-bottom: 1rem;
+}
+
+h1 {
+   font-family: "Montserrat", sans-serif;
+   margin-top: 35vh;
+}
+
+p {
+   font-family: "Roboto", sans-serif;
+   margin-bottom: 2rem;
+}
+
+label {
+   font-family: "Roboto", sans-serif;
+}
+
+a {
+   font-family: "Roboto", sans-serif;
+}
+
+form {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+}
+
+.center {
+   display: flex;
+   justify-content: center;
+}

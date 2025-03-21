@@ -7,16 +7,15 @@ edition = "2021"
 RUST_LOG = "shuttle=error,warn,debug,info"
 
 [dependencies]
-askama = { version = "0.12.1", features = ["with-axum"] }
-askama_axum = "0.4.0"
-axum = { version = "0.7.5", features = ["query"] }
-axum-extra = { version = "0.9.3", features = ["cookie"] }
-axum-macros = "0.4.1"
+axum = { version = "0.8.1", features = ["query"] }
+axum-extra = { version = "0.10.0", features = ["cookie"] }
+axum-macros = "0.5.0"
 cookie = "0.18.1"
+maud = { version = "0.27.0", features = ["axum"] }
 serde = { version = "1.0.207", features = ["derive"] }
-shuttle-axum = "0.47.0"
-shuttle-runtime = "0.47.0"
+shuttle-axum = "0.53.0"
+shuttle-runtime = "0.53.0"
 shuttle-secrets = "0.42.0"
-shuttle-shared-db = { version = "0.47.0", features = ["postgres", "sqlx-native-tls"] }
-sqlx = { version = "0.7.1", features = ["postgres", "runtime-tokio", "tls-native-tls", "time"] }
+shuttle-shared-db = { version = "0.53.0", features = ["postgres", "sqlx-native-tls"] }
+sqlx = { version = "0.8.3", features = ["postgres", "runtime-tokio", "tls-native-tls", "time"] }
 tokio = { version = "1.39.2", features = ["rt-multi-thread"] }

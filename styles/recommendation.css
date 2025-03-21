@@ -1,0 +1,98 @@
+:root {
+   background-color: #232626;
+   color: #ebf9fa;
+}
+
+h1 {
+   font-family: "Montserrat", sans-serif;
+   font-size: 3rem;
+   margin-top: 4rem;
+   margin-bottom: 1rem;
+   text-align: center;
+}
+
+h2 {
+   font-family: "Montserrat", sans-serif;
+   font-size: 1.5rem;
+   margin-bottom: 0;
+}
+
+h3 {
+   font-family: "Montserrat", sans-serif;
+   font-size: 1.25rem;
+   font-weight: 500;
+   margin-bottom: .25rem;
+   margin-top: 0;
+   display: inline-block;
+}
+
+p {
+   font-family: "Roboto", sans-serif;
+   margin-top: 0;
+   margin-bottom: .25rem;
+}
+
+a {
+   font-family: "Roboto", sans-serif;
+   color: #ebf9fa;
+   margin-bottom: 1rem;
+   display: inline-block;
+}
+
+form {
+   display: flex;
+   flex-direction: column;
+   margin-bottom: 1rem;
+}
+
+label {
+   font-family: "Roboto", sans-serif;
+   margin-bottom: .25rem;
+}
+
+input, select, textarea {
+   margin-bottom: .75rem;
+}
+
+hr {
+   border-color: #ebf9fa;
+   background-color: #ebf9fa;
+   margin-bottom: 2rem;
+}
+
+.rating-container {
+   display: flex;
+   flex-direction: row;
+   margin-bottom: 1rem;
+}
+
+.subtitle {
+   font-family: "Montserrat", sans-serif;
+   font-size: 1.5rem;
+   text-align: center;
+}
+
+.center {
+   display: flex;
+   justify-content: center;
+   margin-bottom: 3rem;
+}
+
+.shelf {
+   border: solid #33b86d;
+   border-radius: 10px;
+   width: min(60vw, 60rem);
+   padding-left: 1rem;
+   padding-right: 1rem;
+}
+
+.sent {
+   margin-bottom: 1rem;
+   color: #25b522;
+}
+
+@media only screen and (max-width: 800px) {
+   .shelf {
+      width: 100%;
+   }
+}

@@ -1,31 +1,23 @@
 mod routes;
 mod apiroutes;
+mod templates;
 
 use axum::{
     Extension,
-    http::StatusCode,
     routing::get,
     routing::post,
     Router,
-    response::{Response, Html, IntoResponse},
 };
 
-use shuttle_runtime::SecretStore;
-
-use sqlx::postgres::PgPoolOptions;
-
-use askama::Template;
+use shuttle_shared_db;
 
 #[shuttle_runtime::main]
-pub async fn main(
-    #[shuttle_runtime::Secrets] secrets: SecretStore,
+pub async fn main(#[shuttle_shared_db::Postgres] pool: sqlx::PgPool
 ) -> shuttle_axum::ShuttleAxum {
-    
-    let db = PgPoolOptions::new()
-        .max_connections(5)
-        .connect(&format!("postgresql://postgres.vjjgvrjgtpidryehdqnh:{}@aws-0-us-west-1.pooler.supabase.com:6543/postgres", secrets.get("DB_PASSWORD").expect("Secret not found")).to_string())
+    sqlx::migrate!()
+        .run(&pool)
         .await
-        .expect("Failed to connect to database.");
+        .unwrap();
     
     let app = Router::new()
         .route("/", get(routes::root))
@@ -39,24 +31,7 @@ pub async fn main(
         .route("/reviews", get(routes::reviews))
         .route("/new_user", get(routes::new_user).post(apiroutes::new_user))
         .route("/new_user/username", post(apiroutes::new_username_validation))
-        .layer(Extension(db));
+        .layer(Extension(pool));
     
     Ok(app.into())
-}
-
-struct HtmlTemplate<T>(T);
-
-impl<T> IntoResponse for HtmlTemplate<T>
-    where
-        T: Template,
-{
-    fn into_response(self) -> Response {
-        match self.0.render() {
-            Ok(html) => Html(html).into_response(),
-            Err(err) => (
-                StatusCode::INTERNAL_SERVER_ERROR,
-                format!("Failed to render template. Error: {}", err),
-            ).into_response(),
-        }
-    }
 }

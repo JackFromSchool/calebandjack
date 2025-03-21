@@ -1,0 +1,30 @@
+:root {
+   background-color: #232626;
+   color: #ebf9fa;
+}
+
+h1 {
+   font-family: "Montserrat", sans-serif;
+   font-size: 2rem;
+   margin-top: 4rem;
+   margin-bottom: 2rem;
+   text-align: center;
+}
+
+p {
+   font-family: "Roboto", sans-serif;
+   margin-top: 0;
+   margin-bottom: 1rem;
+   text-align: center;
+}
+
+a {
+   font-family: "Roboto", sans-serif;
+   color: #ebf9fa;
+}
+
+.center {
+   display: flex;
+   justify-content: center;
+   margin-bottom: 3rem;
+}

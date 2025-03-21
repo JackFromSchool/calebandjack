@@ -1,0 +1,43 @@
+:root {
+   background-color: #232626;
+}
+
+h1, p, a {
+   text-align: center;
+   color: #ebf9fa;
+}
+
+h1 {
+   font-family: "Rubik Mono One", monospace;
+   font-size: 2rem;
+   margin-top: 45vh;
+   margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 800px) {
+   h1 {
+      font-size: 1.5rem;
+   }
+}
+
+p {
+   font-family: "Roboto", sans-serif;
+   margin-bottom: 2rem;
+}
+
+a {
+   font-family: "Roboto", sans-serif;
+   font-weight: 600;
+   text-decoration: none;
+   border: solid #33b86d;
+   border-radius: 10px;
+   background: #33b86d;
+   padding: .5em;
+   padding-left: 1em;
+   padding-right: 1em;
+}
+
+.center {
+   display: flex;
+   justify-content: center;
+}

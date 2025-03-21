@@ -1,0 +1,119 @@
+:root {
+   background-color: #232626;
+   color: #ebf9fa;
+}
+
+h1 {
+   font-family: "Montserrat", sans-serif;
+   font-size: 2rem;
+   margin-top: 4rem;
+   margin-bottom: 4rem;
+   text-align: center;
+}
+
+h2 {
+   font-family: "Montserrat", sans-serif;
+   font-size: 1.5rem;
+   margin-bottom: 0;
+}
+
+h3 {
+   font-family: "Montserrat", sans-serif;
+   font-size: 1.25rem;
+   font-weight: 500;
+   margin-bottom: .25rem;
+   margin-top: 0;
+   display: inline-block;
+}
+
+p {
+   font-family: "Roboto", sans-serif;
+   margin-top: 0;
+   margin-bottom: .25rem;
+}
+
+a {
+   font-family: "Roboto", sans-serif;
+   color: #ebf9fa;
+   font-weight: 500;
+   text-decoration: none;
+   border: solid #33b86d;
+   border-radius: 10px;
+   background: #33b86d;
+   padding: .5em;
+}
+
+form {
+   display: flex;
+   flex-direction: column;
+   margin-bottom: 1rem;
+}
+
+label {
+   font-family: "Roboto", sans-serif;
+   margin-bottom: .25rem;
+}
+
+input, select {
+   margin-bottom: .75rem;
+}
+
+hr {
+   border-color: #ebf9fa;
+   background-color: #ebf9fa;
+   margin-bottom: 2rem;
+}
+
+.center {
+   display: flex;
+   justify-content: center;
+   margin-bottom: 3rem;
+}
+
+.center-vertical {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.list-container {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   margin-bottom: 1rem;
+}
+
+.form-div {
+   display: flex;
+   flex-direction: column;
+}
+
+.shelf {
+   border: solid #33b86d;
+   border-radius: 10px;
+   width: min(60vw, 60rem);
+   padding-left: 1rem;
+   padding-right: 1rem;
+}
+
+@media only screen and (max-width: 800px) {
+   .shelf {
+      width: 100%;
+   }
+}
+
+.type {
+   font-size: 1rem;
+   font-weight: 300;
+   margin-left: .25rem;
+   margin-bottom: 0;
+   display: inline-block
+}
+
+.error {
+   color: #c74936;
+}
+
+.valid {
+   color: #25b522;
+}
